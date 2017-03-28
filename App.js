@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet } from 'react-native';
+import { AppRegistry, View, Text, StyleSheet, Animated } from 'react-native';
 
 export default class AnimatedRotation extends Component {
+  componentWillMount() {
+    this.animatedValue = new Animated.Value(0);
+  }
+
+  componentDidMount() {
+    Animated.timing(this.animatedValue, {
+      toValue: 1,
+      duration: 1000
+    }).start()
+  }
+
   render() {
+    const interpolateRotation = this.animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '800deg']
+    })
+    const animatedStyle = {
+      transform: [
+        { rotate: interpolateRotation }
+      ]
+    }
     return (
       <View style={styles.container}>
-        <View style={styles.box}>
+        <Animated.View style={[styles.box, animatedStyle]}>
           <Text style={styles.text}>Spinner</Text>
-        </View>
+        </Animated.View>
       </View>
     );
   }
