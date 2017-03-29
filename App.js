@@ -8,17 +8,18 @@ export default class AnimatedRotation extends Component {
 
   componentDidMount() {
     Animated.timing(this.animatedValue, {
-      toValue: 1,
-      duration: 1000
+      toValue: 100,
+      duration: 3000
     }).start()
   }
 
   render() {
     const interpolateRotation = this.animatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '800deg']
+      inputRange: [0, 100],
+      outputRange: ['0deg', '1800deg']
     })
     const animatedStyle = {
+      borderRadius: this.animatedValue,
       transform: [
         { rotate: interpolateRotation }
       ]
